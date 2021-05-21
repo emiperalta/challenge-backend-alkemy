@@ -21,7 +21,7 @@ de conocimiento actual.
 
 ## Requerimientos técnicos
 
-1. Modelado de Base de Datos
+<strong>1. Modelado de Base de Datos</strong>
 
 - Personaje: deberá tener
   - Imagen.
@@ -41,7 +41,7 @@ de conocimiento actual.
   - Imagen.
   - Películas o series asociadas.
 
-2. Autenticación de Usuarios
+<strong>2. Autenticación de Usuarios</strong>
 
 Para realizar peticiones a los endpoints subsiguientes el usuario deberá contar con un token que
 obtendrá al autenticarse. Para ello, deberán desarrollarse los endpoints de registro y login, que
@@ -52,7 +52,7 @@ Los endpoints encargados de la autenticación deberán ser:
 - /auth/login
 - /auth/register
 
-3. Listado de Personajes
+<strong>3. Listado de Personajes</strong>
 
 El listado deberá mostrar:
 
@@ -63,16 +63,16 @@ El endpoint deberá ser:
 
 - /characters
 
-4. Creación, Edición y Eliminación de Personajes
+<strong>4. Creación, Edición y Eliminación de Personajes</strong>
 
 Deberán existir las operaciones básicas de creación, edición y eliminación de personajes.
 
-5. Detalle de Personaje
+<strong>5. Detalle de Personaje</strong>
 
 En el detalle deberán listarse todos los atributos del personaje, como así también sus películas o
 series relacionadas.
 
-6. Búsqueda de Personajes
+<strong>6. Búsqueda de Personajes</strong>
 
 Deberá permitir buscar por nombre, y filtrar por edad, peso o películas/series en las que participó.
 Para especificar el término de búsqueda o filtros se deberán enviar como parámetros de query:
@@ -81,7 +81,7 @@ Para especificar el término de búsqueda o filtros se deberán enviar como par�
 - /characters?age=edad
 - /characters?movies=idMovie
 
-7. Listado de Películas
+<strong>7. Listado de Películas</strong>
 
 Deberá mostrar solamente los campos imagen, título y fecha de creación.
 
@@ -89,15 +89,15 @@ El endpoint deberá ser:
 
 - /movies
 
-8. Detalle de Película / Serie con sus personajes
+<strong>8. Detalle de Película / Serie con sus personajes</strong>
 
 Devolverá todos los campos de la película o serie junto a los personajes asociados a la misma
 
-9. Creación, Edición y Eliminación de Película / Serie
+<strong>9. Creación, Edición y Eliminación de Película / Serie</strong>
 
 Deberán existir las operaciones básicas de creación, edición y eliminación de películas o series.
 
-10. Búsqueda de Películas o Series
+<strong>10. Búsqueda de Películas o Series</strong>
 
 Deberá permitir buscar por título, y filtrar por género. Además, permitir ordenar los resultados
 por fecha de creación de forma ascendiente o descendiente.
@@ -108,7 +108,7 @@ El término de búsqueda, filtro u ordenación se deberán especificar como par�
 - /movies?genre=idGenero
 - /movies?order=ASC | DESC
 
-11. Envío de emails
+<strong>11. Envío de emails</strong>
 
 Al registrarse en el sitio, el usuario deberá recibir un email de bienvenida. Es recomendable, la
 utilización de algún servicio de terceros como SendGrid.
