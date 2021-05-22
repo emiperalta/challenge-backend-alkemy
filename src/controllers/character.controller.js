@@ -1,4 +1,4 @@
-const { Character, Movie } = require('../database');
+const { Character, Movie, CharacterMovie } = require('../database');
 
 const getAll = async (req, res) => {
   const { name, age, movies } = req.query;
@@ -40,6 +40,7 @@ const getOne = async (req, res) => {
       where: { id },
       include: [{ model: Movie, attributes: ['title', 'image', 'creationDate'] }],
     });
+    if (!character) return res.status(404).json({ error: 'character not found' });
     res.status(200).json(character);
   } catch (err) {
     console.error(err);
@@ -47,10 +48,17 @@ const getOne = async (req, res) => {
 };
 
 const addOne = async (req, res) => {
+  const loggedUserId = req.user;
+  const { title } = req.body;
   try {
-    const newCharacter = await Character.create(req.body);
-    //TODO: associate the character with a movie
-    //TODO: create a charactermovie instance
+    const movie = await Movie.findOne({ where: { title } });
+    if (!movie) return res.status(404).json({ error: 'movie not found' });
+    const newCharacter = await Character.create({
+      ...req.body,
+      userId: loggedUserId,
+    });
+    await CharacterMovie.create({ movieId: movie.id, characterId: newCharacter.id });
+    //TODO: fix this
     res.status(201).json(newCharacter);
   } catch (err) {
     console.error(err);
@@ -59,10 +67,14 @@ const addOne = async (req, res) => {
 
 const updateOne = async (req, res) => {
   const { id } = req.params;
+  const loggedUserId = req.user;
   try {
     const characterToUpdate = await Character.findOne({ where: { id } });
     if (!characterToUpdate) {
       return res.status(404).json({ error: 'character not found' });
+    }
+    if (characterToDelete.userId !== loggedUserId) {
+      return res.status(403).json({ error: 'not allowed' });
     }
     await characterToUpdate.update(req.body);
     res.status(200).json(characterToUpdate);
@@ -73,10 +85,14 @@ const updateOne = async (req, res) => {
 
 const deleteOne = async (req, res) => {
   const { id } = req.params;
+  const loggedUserId = req.user;
   try {
     const characterToDelete = await Character.findOne({ where: { id } });
     if (!characterToDelete) {
       return res.status(404).json({ error: 'character not found' });
+    }
+    if (characterToDelete.userId !== loggedUserId) {
+      return res.status(403).json({ error: 'not allowed' });
     }
     await characterToDelete.destroy();
     res.status(204).end();

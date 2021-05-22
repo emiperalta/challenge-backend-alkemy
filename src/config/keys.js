@@ -11,4 +11,6 @@ module.exports = {
   },
   PORT: process.env.PORT,
   SECRET: process.env.SECRET,
+  SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+  SENDGRID_DOMAIN: process.env.SENDGRID_DOMAIN,
 };

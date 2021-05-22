@@ -2,16 +2,20 @@
 
 ###
 GET {{baseUrl}}
+Authorization: Bearer <token>
 
 ###
 GET {{baseUrl}}?query=value
+Authorization: Bearer <token>
 
 ###
 GET {{baseUrl}}/:id
+Authorization: Bearer <token>
 
 ###
 POST {{baseUrl}}
 Content-Type: application/json
+Authorization: Bearer <token>
 
 {
   "name": "Test Test",
@@ -24,6 +28,7 @@ Content-Type: application/json
 ###
 PUT {{baseUrl}}/:id
 Content-Type: application/json
+Authorization: Bearer <token>
 
 {
   "name": "Test Test update",
@@ -35,3 +40,4 @@ Content-Type: application/json
 
 ###
 DELETE {{baseUrl}}/:id
+Authorization: Bearer <token>

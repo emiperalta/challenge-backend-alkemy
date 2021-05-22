@@ -38,5 +38,6 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
+    userId: DataTypes.UUID,
   });
 };
