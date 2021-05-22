@@ -4,6 +4,12 @@
 GET {{baseUrl}}
 
 ###
+GET {{baseUrl}}?query=value
+
+###
+GET {{baseUrl}}/:id
+
+###
 POST {{baseUrl}}
 Content-Type: application/json
 
