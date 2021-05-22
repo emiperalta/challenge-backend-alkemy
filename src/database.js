@@ -4,6 +4,7 @@ const { conOpt } = require('./config/keys');
 
 const CharacterModel = require('./models/Character');
 const MovieModel = require('./models/Movie');
+const CharacterMovieModel = require('./models/CharacterMovie');
 const GenreModel = require('./models/Genre');
 const UserModel = require('./models/User');
 
@@ -15,11 +16,12 @@ const sequelize = new Sequelize(conOpt.database, conOpt.user, conOpt.password, {
 
 const Character = CharacterModel(sequelize, DataTypes);
 const Movie = MovieModel(sequelize, DataTypes);
+const CharacterMovie = CharacterMovieModel(sequelize, DataTypes);
 const Genre = GenreModel(sequelize, DataTypes);
 const User = UserModel(sequelize, DataTypes);
 
-Character.belongsToMany(Movie, { through: 'CharacterMovies' });
-Movie.belongsToMany(Character, { through: 'CharacterMovies' });
+Character.belongsToMany(Movie, { through: CharacterMovie });
+Movie.belongsToMany(Character, { through: CharacterMovie });
 Genre.hasMany(Movie);
 Movie.belongsTo(Genre);
 

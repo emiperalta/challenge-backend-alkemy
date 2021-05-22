@@ -1,0 +1,31 @@
+@baseUrl = http://<HOST>:<PORT>/api/characters
+
+###
+GET {{baseUrl}}
+
+###
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "Test Test",
+  "image": "test/test",
+  "age": 25,
+  "weight": 90,
+  "history": "test history",
+}
+
+###
+PUT {{baseUrl}}/:id
+Content-Type: application/json
+
+{
+  "name": "Test Test update",
+  "image": "test/test",
+  "age": 25,
+  "weight": 90.3,
+  "history": "test history"
+}
+
+###
+DELETE {{baseUrl}}/:id
