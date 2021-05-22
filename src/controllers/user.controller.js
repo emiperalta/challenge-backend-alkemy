@@ -1,6 +1,7 @@
 const { errorHandler } = require('../utils/errorHandler');
 const { generateToken } = require('../utils/tokenManagment');
 const { comparePassword, hashPassword } = require('../utils/passwordManagment');
+const { sendEmail } = require('../utils/emailManagment');
 
 const { User } = require('../database');
 
@@ -32,6 +33,7 @@ const register = async (req, res) => {
       email,
       password: password ? await hashPassword(req.body.password) : '',
     });
+    sendEmail(newUser.email);
     res.status(201).json(newUser);
   } catch (err) {
     const error = errorHandler(err);

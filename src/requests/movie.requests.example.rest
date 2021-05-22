@@ -1,0 +1,37 @@
+@baseUrl = http://<HOST>:<PORT>/api/movies
+
+###
+GET {{baseUrl}}
+
+###
+GET {{baseUrl}}?query=value
+
+###
+GET {{baseUrl}}/:id
+
+###
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "title": "Movie",
+  "image": "test/test",
+  "creationDate": "03/04/2005",
+  "qualification": 5,
+  "genreId": 2
+}
+
+###
+PUT {{baseUrl}}/:id
+Content-Type: application/json
+
+{
+  "title": "Movie update",
+  "image": "test/test",
+  "creationDate": "03/04/2005",
+  "qualification": 5,
+  "genreId": 2
+}
+
+###
+DELETE {{baseUrl}}/:id

@@ -4,27 +4,27 @@ const getAll = async (req, res) => {
   const { name, age, movies } = req.query;
   try {
     if (name) {
-      const characterByName = await Character.findOne({ where: { name } });
-      if (!characterByName) {
+      const charactersByName = await Character.findAll({ where: { name } });
+      if (!charactersByName) {
         return res.status(404).json({ error: 'character not found' });
       }
-      return res.status(200).json(characterByName);
+      return res.status(200).json(charactersByName);
     }
     if (age) {
-      const characterByAge = await Character.findOne({ where: { age } });
-      if (!characterByAge) {
+      const charactersByAge = await Character.findAll({ where: { age } });
+      if (!charactersByAge) {
         return res.status(404).json({ error: 'character not found' });
       }
-      return res.status(200).json(characterByName);
+      return res.status(200).json(charactersByAge);
     }
     if (movies) {
-      const characterByMovie = await Character.findOne({
+      const charactersByMovie = await Character.findAll({
         where: { movieId: movies },
       });
-      if (!characterByMovie) {
+      if (!charactersByMovie) {
         return res.status(404).json({ error: 'character not found' });
       }
-      return res.status(200).json(characterByName);
+      return res.status(200).json(charactersByMovie);
     }
     const characters = await Character.findAll({ attributes: ['name', 'image'] });
     res.status(200).json(characters);
@@ -60,12 +60,12 @@ const addOne = async (req, res) => {
 const updateOne = async (req, res) => {
   const { id } = req.params;
   try {
-    const characterExists = await Character.findOne({ where: { id } });
-    if (!characterExists) {
+    const characterToUpdate = await Character.findOne({ where: { id } });
+    if (!characterToUpdate) {
       return res.status(404).json({ error: 'character not found' });
     }
-    await characterExists.update(req.body);
-    res.status(200).json(characterExists);
+    await characterToUpdate.update(req.body);
+    res.status(200).json(characterToUpdate);
   } catch (err) {
     console.error(err);
   }
@@ -74,11 +74,11 @@ const updateOne = async (req, res) => {
 const deleteOne = async (req, res) => {
   const { id } = req.params;
   try {
-    const characterExists = await Character.findOne({ where: { id } });
-    if (!characterExists) {
+    const characterToDelete = await Character.findOne({ where: { id } });
+    if (!characterToDelete) {
       return res.status(404).json({ error: 'character not found' });
     }
-    await characterExists.destroy();
+    await characterToDelete.destroy();
     res.status(204).end();
   } catch (err) {
     console.error(err);
