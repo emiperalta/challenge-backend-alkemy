@@ -1,4 +1,4 @@
-const { Character, Movie, CharacterMovie } = require('../database');
+const { Character, Movie } = require('../database');
 
 const getAll = async (req, res) => {
   const { name, age, movies } = req.query;
@@ -53,12 +53,18 @@ const addOne = async (req, res) => {
   try {
     const movie = await Movie.findOne({ where: { title } });
     if (!movie) return res.status(404).json({ error: 'movie not found' });
+    const characterExists = await Character.findOne({
+      where: { name: req.body.name },
+    });
+    if (characterExists) {
+      characterExists.addMovie(movie);
+      return res.status(201).json(characterExists);
+    }
     const newCharacter = await Character.create({
       ...req.body,
       userId: loggedUserId,
     });
-    await CharacterMovie.create({ movieId: movie.id, characterId: newCharacter.id });
-    //TODO: fix this
+    newCharacter.addMovie(movie);
     res.status(201).json(newCharacter);
   } catch (err) {
     console.error(err);

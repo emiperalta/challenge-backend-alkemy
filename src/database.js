@@ -4,7 +4,6 @@ const { conOpt } = require('./config/keys');
 
 const CharacterModel = require('./models/Character');
 const MovieModel = require('./models/Movie');
-const CharacterMovieModel = require('./models/CharacterMovie');
 const GenreModel = require('./models/Genre');
 const UserModel = require('./models/User');
 
@@ -16,12 +15,11 @@ const sequelize = new Sequelize(conOpt.database, conOpt.user, conOpt.password, {
 
 const Character = CharacterModel(sequelize, DataTypes);
 const Movie = MovieModel(sequelize, DataTypes);
-const CharacterMovie = CharacterMovieModel(sequelize, DataTypes);
 const Genre = GenreModel(sequelize, DataTypes);
 const User = UserModel(sequelize, DataTypes);
 
-Character.belongsToMany(Movie, { through: CharacterMovie });
-Movie.belongsToMany(Character, { through: CharacterMovie });
+Character.belongsToMany(Movie, { through: 'CharacterMovie' });
+Movie.belongsToMany(Character, { through: 'CharacterMovie' });
 Genre.hasMany(Movie);
 Movie.belongsTo(Genre);
 User.hasMany(Character);
@@ -32,7 +30,7 @@ Movie.belongsTo(User);
 (async () => {
   await sequelize.authenticate();
   console.log('\ndb connected\n');
-  await sequelize.sync({ force: false });
+  await sequelize.sync({ force: true });
   await Genre.create({ name: 'Action', image: 'Action.jpg' });
   await Genre.create({ name: 'Comedy', image: 'Comedy.jpg' });
   await Genre.create({ name: 'Fantasy', image: 'Fantasy.jpg' });
@@ -42,4 +40,4 @@ Movie.belongsTo(User);
   console.log('\nsynchronized tables\n');
 })();
 
-module.exports = { Character, Movie, Genre, User, CharacterMovie };
+module.exports = { Character, Movie, Genre, User };

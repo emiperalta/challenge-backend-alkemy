@@ -1,4 +1,4 @@
-const { errorHandler } = require('../utils/errorHandler');
+const errorHandler = require('../utils/errorHandler');
 const { generateToken } = require('../utils/tokenManagment');
 const { comparePassword, hashPassword } = require('../utils/passwordManagment');
 const { sendEmail } = require('../utils/emailManagment');

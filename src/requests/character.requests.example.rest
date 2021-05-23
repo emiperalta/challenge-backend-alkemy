@@ -18,11 +18,12 @@ Content-Type: application/json
 Authorization: Bearer <token>
 
 {
-  "name": "Test Test",
+  "name": "Test Test ",
   "image": "test/test",
   "age": 25,
   "weight": 90,
   "history": "test history",
+  "title": "Movie test"
 }
 
 ###

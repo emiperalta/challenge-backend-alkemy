@@ -18,8 +18,8 @@ Content-Type: application/json
 Authorization: Bearer <token>
 
 {
-  "title": "Movie",
-  "image": "test/test",
+  "title": "Movie test",
+  "image": "test.jpg",
   "creationDate": "03/04/2005",
   "qualification": 5,
   "genreId": 2
