@@ -30,7 +30,7 @@ Movie.belongsTo(User);
 (async () => {
   await sequelize.authenticate();
   console.log('\ndb connected\n');
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ force: false });
   await Genre.create({ name: 'Action', image: 'Action.jpg' });
   await Genre.create({ name: 'Comedy', image: 'Comedy.jpg' });
   await Genre.create({ name: 'Fantasy', image: 'Fantasy.jpg' });

@@ -1,4 +1,4 @@
-@baseUrl = http://<HOST>:<PORT>/api/auth
+@baseUrl = http://localhost:<PORT>/api/auth
 
 ###
 POST {{baseUrl}}/login

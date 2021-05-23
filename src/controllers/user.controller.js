@@ -34,7 +34,7 @@ const register = async (req, res) => {
       password: password ? await hashPassword(req.body.password) : '',
     });
     sendEmail(newUser.email);
-    res.status(201).json(newUser);
+    res.status(201).json({ username: newUser.username, email: newUser.email });
   } catch (err) {
     const error = errorHandler(err);
     res.status(400).json({ error });

@@ -1,4 +1,5 @@
 require('./database');
+const { PORT } = require('./config/keys');
 const { app } = require('./app');
 
-app.listen(5000, () => console.log('server running at port 5001'));
+app.listen(PORT, () => console.log(`server running at port ${PORT}`));

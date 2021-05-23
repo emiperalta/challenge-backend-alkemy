@@ -1,4 +1,4 @@
-@baseUrl = http://<HOST>:<PORT>/api/characters
+@baseUrl = http://localhost:<PORT>/api/characters
 
 ###
 GET {{baseUrl}}
