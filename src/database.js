@@ -28,16 +28,22 @@ User.hasMany(Movie);
 Movie.belongsTo(User);
 
 (async () => {
-  await sequelize.authenticate();
-  console.log('\ndb connected\n');
-  await sequelize.sync({ force: false });
-  await Genre.create({ name: 'Action', image: 'Action.jpg' });
-  await Genre.create({ name: 'Comedy', image: 'Comedy.jpg' });
-  await Genre.create({ name: 'Fantasy', image: 'Fantasy.jpg' });
-  await Genre.create({ name: 'Historical', image: 'Historical.jpg' });
-  await Genre.create({ name: 'Horror', image: 'Horror.jpg' });
-  await Genre.create({ name: 'Science fiction', image: 'Science fiction.jpg' });
-  console.log('\nsynchronized tables\n');
+  try {
+    await sequelize.authenticate();
+    console.log('\ndb connected\n');
+    await sequelize.sync({ force: false });
+    await Genre.bulkCreate([
+      { name: 'Action', image: 'Action.jpg' },
+      { name: 'Comedy', image: 'Comedy.jpg' },
+      { name: 'Fantasy', image: 'Fantasy.jpg' },
+      { name: 'Historical', image: 'Historical.jpg' },
+      { name: 'Horror', image: 'Horror.jpg' },
+      { name: 'Science fiction', image: 'Science fiction.jpg' },
+    ]);
+    console.log('\nsynchronized tables\n');
+  } catch (err) {
+    console.error(err);
+  }
 })();
 
 module.exports = { Character, Movie, Genre, User };

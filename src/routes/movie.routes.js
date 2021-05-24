@@ -209,7 +209,7 @@ router.post('/', checkAuth, movieController.addOne);
 
 /**
  * @swagger
- * /api/movies:
+ * /api/movies/{id}:
  *   put:
  *     summary: Update a movie
  *     tags:
@@ -229,6 +229,7 @@ router.post('/', checkAuth, movieController.addOne);
  *         application/json:
  *           schema:
  *             type: object
+ *             required: [title]
  *             properties:
  *               title:
  *                 type: string
@@ -248,7 +249,29 @@ router.post('/', checkAuth, movieController.addOne);
  *     responses:
  *       200:
  *         description: OK
- *         //TODO: finish this
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 title:
+ *                   type: string
+ *                   description: The updated title of the movie
+ *                 image:
+ *                   type: string
+ *                   description: The updated image of the movie
+ *                 creationDate:
+ *                   type: string
+ *                   description: The updated creation date of the movie
+ *                 qualification:
+ *                   type: integer
+ *                   description: The updated qualification of the movie
+ *                 genre:
+ *                   type: object
+ *                   properties:
+ *                     name:
+ *                       type: string
+ *                       description: The updated genre of the movie
  *       404:
  *         description: NOT FOUND
  *         content:
@@ -274,7 +297,7 @@ router.put('/:id', checkAuth, movieController.updateOne);
 
 /**
  * @swagger
- * /api/movies:
+ * /api/movies/{id}:
  *   delete:
  *     summary: Delete a movie
  *     tags:

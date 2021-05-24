@@ -80,7 +80,12 @@ const updateOne = async (req, res) => {
       return res.status(403).json({ error: 'not allowed' });
     }
     await movieToUpdate.update(req.body);
-    res.status(200).json(movieToUpdate);
+    const updatedMovie = await Movie.findOne({
+      where: { id },
+      attributes: ['title', 'image', 'creationDate', 'qualification'],
+      include: { model: Genre, attributes: ['name'] },
+    });
+    res.status(200).json(updatedMovie);
   } catch (err) {
     console.error(err);
   }
