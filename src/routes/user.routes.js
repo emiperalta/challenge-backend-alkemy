@@ -6,9 +6,11 @@ const router = Router();
 
 /**
  * @swagger
- * /login:
+ * /api/auth/login:
  *   post:
  *     summary: User logs in
+ *     tags:
+ *       - users
  *     requestBody:
  *       required: true
  *       content:
@@ -18,10 +20,10 @@ const router = Router();
  *             properties:
  *               email:
  *                 type: string
- *                 description: The user email
+ *                 description: The user email.
  *               password:
  *                 type: string
- *                 description: The user password
+ *                 description: The user password.
  *     responses:
  *       200:
  *         description: OK.
@@ -32,15 +34,27 @@ const router = Router();
  *               properties:
  *                 token:
  *                   type: string
- *                   description: User token
+ *                   description: User token.
+ *       400:
+ *         description: BAD REQUEST.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
  */
 router.post('/login', userController.login);
 
 /**
  * @swagger
- * /register:
+ * /api/auth/register:
  *   post:
  *     summary: User registers
+ *     tags:
+ *       - users
  *     requestBody:
  *       required: true
  *       content:
@@ -58,8 +72,8 @@ router.post('/login', userController.login);
  *                 type: string
  *                 description: The user password
  *     responses:
- *       200:
- *         description: OK.
+ *       201:
+ *         description: CREATED.
  *         content:
  *           application/json:
  *             schema:
@@ -71,6 +85,16 @@ router.post('/login', userController.login);
  *                 email:
  *                   type: string
  *                   description: New user email
+ *       400:
+ *         description: BAD REQUEST.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Error message.
  */
 router.post('/register', userController.register);
 

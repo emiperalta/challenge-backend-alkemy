@@ -1,21 +1,30 @@
 const errorHandler = require('../utils/errorHandler');
-const { Character, Movie } = require('../database');
+const { Character, Movie, Genre } = require('../database');
 
 const getAll = async (req, res) => {
   const { name, genre, order } = req.query;
   try {
     if (name) {
-      const moviesByName = await Movie.findAll({ where: { title: name } });
+      const moviesByName = await Movie.findAll({
+        where: { title: name },
+        attributes: ['title', 'image', 'creationDate'],
+      });
       if (!moviesByName) return res.status(404).json({ error: 'no movie found' });
       return res.status(200).json(moviesByName);
     }
     if (genre) {
-      const moviesByGenre = await Movie.findAll({ where: { genreId: genre } });
+      const moviesByGenre = await Movie.findAll({
+        where: { genreId: genre },
+        attributes: ['title', 'image', 'creationDate'],
+      });
       if (!moviesByGenre) return res.status(404).json({ error: 'no movie found' });
       return res.status(200).json(moviesByGenre);
     }
     if (order) {
-      const moviesByOrder = await Movie.findAll({ order: [['title', order]] });
+      const moviesByOrder = await Movie.findAll({
+        order: [['title', order]],
+        attributes: ['title', 'image', 'creationDate'],
+      });
       return res.status(200).json(moviesByOrder);
     }
     const movies = await Movie.findAll({
@@ -32,7 +41,11 @@ const getOne = async (req, res) => {
   try {
     const movie = await Movie.findOne({
       where: { id },
-      include: [{ model: Character, attributes: ['name', 'image', 'history'] }],
+      attributes: ['id', 'title', 'image', 'creationDate', 'qualification'],
+      include: [
+        { model: Character, attributes: ['name', 'image', 'history'] },
+        { model: Genre, attributes: ['name'] },
+      ],
     });
     if (!movie) return res.status(404).json({ error: 'movie not found' });
     res.status(200).json(movie);
@@ -44,7 +57,12 @@ const getOne = async (req, res) => {
 const addOne = async (req, res) => {
   const loggedUserId = req.user;
   try {
-    const newMovie = await Movie.create({ ...req.body, userId: loggedUserId });
+    const movie = await Movie.create({ ...req.body, userId: loggedUserId });
+    const newMovie = await Movie.findOne({
+      where: { id: movie.id },
+      attributes: ['id', 'title', 'image', 'creationDate', 'qualification'],
+      include: [{ model: Genre, attributes: ['name'] }],
+    });
     res.status(201).json(newMovie);
   } catch (err) {
     const error = errorHandler(err);

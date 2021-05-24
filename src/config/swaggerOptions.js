@@ -2,7 +2,7 @@ const { PORT } = require('./keys');
 
 module.exports = {
   definition: {
-    openapi: '3.0.0',
+    openapi: '3.0.1',
     info: {
       title: 'Backend Challenge - Alkemy',
       version: '1.0.0',
@@ -14,17 +14,16 @@ module.exports = {
         description: 'Development server',
       },
     ],
-  },
-  components: {
-    securitySchemes: {
-      jwt: {
-        type: 'http',
-        scheme: 'bearer',
-        in: 'header',
-        bearerFormat: 'JWT',
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          in: 'header',
+          bearerFormat: 'JWT',
+        },
       },
     },
   },
-  security: [{ jwt: [] }],
   apis: ['./src/routes/*.js'],
 };
